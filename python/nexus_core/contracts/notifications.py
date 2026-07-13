@@ -2,6 +2,7 @@
 
 Sent by Platform to Console webhook. Signed with Platform private key; Console
 verifies with the Platform public key it received at /_bootstrap response.
+Structure mirrors CommandEnvelope so tooling can be symmetric.
 """
 
 from enum import Enum
@@ -26,7 +27,23 @@ class Notification(BaseModel):
 
 
 class NotificationEnvelope(BaseModel):
+    """Signed envelope. The whole envelope is the JWT payload."""
+
     notif_id: UUID = Field(default_factory=uuid4)
     instance_id: UUID
-    emitted_at: int
+    issued_at: int   # epoch seconds
+    expires_at: int  # epoch seconds
     notification: Notification
+
+
+class NotificationStatus(str, Enum):
+    ACK = "ack"
+    INVALID_SIGNATURE = "invalid_signature"
+    EXPIRED = "expired"
+    UNKNOWN_INSTANCE = "unknown_instance"
+
+
+class NotificationResult(BaseModel):
+    notif_id: UUID
+    status: NotificationStatus
+    detail: str | None = None
