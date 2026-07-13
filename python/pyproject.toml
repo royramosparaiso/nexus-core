@@ -1,0 +1,36 @@
+[project]
+name = "nexus-core"
+version = "0.6.0"
+description = "Nexus OS core SDK — shared types, JWT contracts, typed HTTP client."
+readme = "../README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Ironbat Digital LLC", email = "hello@ironbat.digital" },
+]
+keywords = ["nexus-os", "agentic", "sdk"]
+dependencies = [
+  "pydantic>=2.9",
+  "cryptography>=44.0",
+  "pyjwt[crypto]>=2.10",
+  "httpx>=0.28",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.8",
+  "mypy>=1.13",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["nexus_core"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
