@@ -12,6 +12,7 @@ export interface PersonaConfig {
 }
 
 export type Modality = "local" | "fly" | "k8s" | "onprem" | "saas";
+export type AgentRuntime = "in_process" | "redis_workers";
 
 export interface DeploymentConfig {
   modality: Modality;
@@ -19,6 +20,8 @@ export interface DeploymentConfig {
   region: string | null;
   tls: boolean;
   autoscale: boolean;
+  runtime: AgentRuntime;
+  worker_replicas: number;
 }
 
 export type LlmProvider =
@@ -78,12 +81,29 @@ export interface AreasConfig {
 export type AutonomyLevel =
   | "read_only" | "propose" | "act_with_approval" | "act_autonomously";
 
+export type AuthProvider =
+  | "password_totp"
+  | "magic_link"
+  | "oauth_google"
+  | "oauth_microsoft"
+  | "oauth_github"
+  | "console_idp"
+  | "clerk";
+
+export interface AuthConfig {
+  provider: AuthProvider;
+  smtp_credential_ref: string | null;
+  oauth_credential_ref: string | null;
+  clerk_credential_ref: string | null;
+}
+
 export interface GovernanceConfig {
   default_autonomy: AutonomyLevel;
   kill_switch_enabled: boolean;
   audit_retention_days: number;
   monthly_budget_alert_pct: number;
   require_2fa_for_superadmin: boolean;
+  auth: AuthConfig;
 }
 
 export type InstanceStatus =

@@ -20,7 +20,7 @@ describe("shared models", () => {
       kind: "Instance",
       name: "test",
       persona: { display_name: "T", kind: "personal", description: "", default_locale: "es-ES" },
-      deployment: { modality: "local", domain: null, region: null, tls: true, autoscale: false },
+      deployment: { modality: "local", domain: null, region: null, tls: true, autoscale: false, runtime: "in_process", worker_replicas: 1 },
       llms: {
         enabled_providers: ["ollama"],
         roles: {
@@ -39,6 +39,7 @@ describe("shared models", () => {
         default_autonomy: "act_with_approval", kill_switch_enabled: true,
         audit_retention_days: 730, monthly_budget_alert_pct: 80,
         require_2fa_for_superadmin: true,
+        auth: { provider: "password_totp", smtp_credential_ref: null, oauth_credential_ref: null, clerk_credential_ref: null },
       },
     };
     expect(m.name).toBe("test");
