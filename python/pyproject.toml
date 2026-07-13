@@ -1,6 +1,6 @@
 [project]
 name = "nexus-core"
-version = "0.6.0"
+version = "0.7.0"
 description = "Nexus OS core SDK — shared types, JWT contracts, typed HTTP client."
 readme = "../README.md"
 requires-python = ">=3.11"

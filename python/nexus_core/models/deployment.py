@@ -4,7 +4,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-Modality = Literal["local", "fly", "k8s", "onprem", "saas"]
+Modality = Literal["local", "fly", "hetzner", "k8s", "onprem", "saas"]
 
 # Agent runtime backend. See ADR-001 in nexus-platform.
 # v0.6: only `in_process` is functional. `redis_workers` reserved for v0.7.
